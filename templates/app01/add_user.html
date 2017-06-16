@@ -6,40 +6,75 @@
             <form action="{% url 'add_users' %}" method="post">{% csrf_token %}
                 <div class="form-group">
                     <label for="username">用户名</label>
-                    <input type="text" class="form-control" id="username" name="username" {% if form.username.value %}value="{{ form.username.value }}{% endif %}">
+                    <input type="text" class="form-control" id="username" name="username" {% if form.username.value %}value="{{ form.username.value }}"{% endif %}>
+                {%  if form.errors.username %}
+                    {% for item in form.errors.username %}
+                        <span style="color: red">{{ item }}</span>
+                    {% endfor %}
+                {% endif %}
                 </div>
                 <div class="form-group">
                     <label for="password">password</label>
                     <input type="password" class="form-control" id="password" name="Password">
                 </div>
+                {%  if form.errors.password %}
+                    {% for item in form.errors.password %}
+                        <span style="color: red">{{ item }}</span>
+                    {% endfor %}
+                {% endif %}
                 <div class="form-group">
                     <label for="usergroup">usergroup</label>
                     <span style="float: right;color: #4cae4c" class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+
                     <select type="text" class="form-control" id="usergroup" name="usergroup">
 {#                        <option value="" selected="selected">---------</option>#}
+
                         {% for group in groups %}
-                        <option value="{{ group.id }}" {% if group.value == group.id %}selected="selected"{% endif %}>{{ group.groupname }}</option>
+
+                        <option aaa="{% if form.usergroup.value == group.id %}相等{% else %}不等{% endif %}"
+                                value="{{ group.id }}" {% if form.usergroup.value == group.id %}selected="selected"{% endif %}>
+                            {{ group.groupname }}</option>
                         {% endfor %}
                     </select>
-
+                    {%  if form.errors.usergroup %}
+                        {% for item in form.errors.usergroup %}
+                            <span style="color: red">{{ item }}</span>
+                        {% endfor %}
+                    {% endif %}
                 </div>
+
                 <div class="form-group">
                     <label for="department">department</label>
                     <span style="float: right;color: #4cae4c" class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                     <select type="text" class="form-control" id="department" name="department">
-                        <option value="" selected="selected">---------</option>
+{#                        <option value="" selected="selected">---------</option>#}
                         {% for department in departments %}
-                        <option value="{{ department.id }}">{{ department.departname }}</option>
+                        <option value="{{ department.id }}" {% if form.department.value == department.id %}selected="selected"{% endif %}>{{ department.departname }}</option>
                         {% endfor %}
                     </select>
+                    {%  if form.errors.department %}
+                    {% for item in form.errors.department %}
+                        <span style="color: red">{{ item }}</span>
+                    {% endfor %}
+                {% endif %}
                 </div>
                 <div class="form-group">
                     <label for="phone">phone</label>
-                    <input type="text" class="form-control" id="phone" name="phone">
+                    <input type="text" class="form-control" id="phone" name="phone" {% if form.phone.value %}value="{{ form.phone.value }}"{% endif %}>
+                    {%  if form.errors.phone %}
+                    {% for item in form.errors.phone %}
+                        <span style="color: red">{{ item }}</span>
+                    {% endfor %}
+                    {% endif %}
                 </div>
                 <div class="form-group">
                     <label for="mail_address">mail_address</label>
-                    <input type="text" class="form-control" id="mail_address" name="mail_address">
+                    <input type="text" class="form-control" id="mail_address" name="mail_address" {% if form.mail_address.value %}value="{{ form.mail_address.value }}"{% endif %}>
+                    {%  if form.errors.mail_address %}
+                    {% for item in form.errors.mail_address %}
+                        <span style="color: red">{{ item }}</span>
+                    {% endfor %}
+                    {% endif %}
                 </div>
 
                 <button type="submit" class="btn btn-default">Submit</button>

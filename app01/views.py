@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from form import WorkForm,UserForm,GroupForm,DepartForm
 from models import Work,User,Group,Depart
 from django.forms import modelformset_factory,modelform_factory
+from .form import CreateUserForm
 # Create your views here.
 
 def index(request):
@@ -19,24 +20,24 @@ def list_users(request):
 
 
 def add_users(request):
-
+    groups = Group.objects.all()
+    departments = Depart.objects.all()
     if request.method == 'GET':
-        groups = Group.objects.all()
-        departments = Depart.objects.all()
         form = UserForm()
-        context = {
-            'groups':groups,
-            'departments':departments,
-            'form':form
-        }
-        return render(request,'app01/add_user.html',context=context)
+
     elif request.method == 'POST':
+        form = CreateUserForm(request.POST)
 
-        form = UserForm(
-            request.POST
-        )
-        print(request.POST)
         if form.is_valid():
-            form.save()
+            print(form.clean())
+        else:
+            print(form.errors)
+    context = {
+        'groups': groups,
+        'departments': departments,
+        'form': form
+    }
+    print(int(form['usergroup'].value()) == groups[0].id)
+    return render(request, 'app01/add_user.html', context=context)
 
-        return redirect( 'add_users')
+        # return redirect( 'add_users')

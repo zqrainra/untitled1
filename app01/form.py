@@ -31,5 +31,11 @@ class CreateUserForm(forms.Form):
     password = forms.CharField(required=True,error_messages={'required':u'密码不能为空'})
     usergroup = forms.CharField(required=True,error_messages={'required':u'用户组不能为空'})
     department = forms.CharField(required=True,error_messages={'required':u'部门不能为空'})
-    phone = forms.CharField(validators=[])
+    phone = forms.CharField(required=True,
+                            error_messages={'required':u'电话号码不能为空'},
+                            validators=[phone_exist_validator,])
+    mail_address = forms.CharField(required=True,
+                                   error_messages={'required':u'邮箱地址不能为空'},
+                                    validators=[mail_exist_validator,]
+                                   )
 
