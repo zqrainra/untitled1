@@ -12,13 +12,16 @@ class UserForm(ModelForm):
         fields = ['username','usergroup','department','phone','mail_address']
 
 class GroupForm(ModelForm):
+    def clean_groupname(self):
+        data = self.cleaned_data['groupname']
+        groupname = Group.objects.filter(groupname=data)
+        if groupname:
+            raise ValidationError('用户组已存在')
+        return data
+
     class Meta:
         model = Group
         fields = ['groupname']
-    def clean(self):
-        if self.validate_unique():
-            raise ValidationError('用户组已存在')
-
 
 
 class DepartForm(ModelForm):

@@ -7,14 +7,14 @@ from django.db import models
 
 
 class Group(models.Model):
-    groupname = models.CharField(max_length=50)
+    groupname = models.CharField(max_length=50,unique=True)
 
     def __unicode__(self):
         return self.groupname
 
 
 class Depart(models.Model):
-    departname = models.CharField(max_length=50)
+    departname = models.CharField(max_length=50,unique=True)
 
 
     def __unicode__(self):
