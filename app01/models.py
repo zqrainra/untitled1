@@ -25,8 +25,8 @@ class User(models.Model):
     password = models.CharField(max_length=128,null=True)
     usergroup = models.ForeignKey(Group)
     department = models.ForeignKey(Depart)
-    c_time = models.DateField(auto_now_add=True)
-    m_time = models.DateField(auto_now=True)
+    c_time = models.DateTimeField(auto_now_add=True)
+    m_time = models.DateTimeField(auto_now=True)
     phone = models.CharField(max_length=20,null=True,unique=True)
     mail_address = models.CharField(max_length=50,null=True,unique=True)
 
@@ -40,9 +40,9 @@ class Work(models.Model):
     content = models.TextField(max_length=255)
     own_user = models.ForeignKey(User,related_name='own_user',verbose_name='绑定用户')
     bind_user = models.ForeignKey(User,related_name='bind_user')
-    c_time = models.DateField(auto_now_add=True)
-    m_time = models.DateField(auto_now=True)
-    f_time = models.DateField()
+    c_time = models.DateTimeField(auto_now_add=True)
+    m_time = models.DateTimeField(auto_now=True)
+    f_time = models.DateTimeField()
 
     def __unicode__(self):
         return self.title

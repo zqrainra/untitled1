@@ -1,5 +1,6 @@
 {% extends "app01/base.html" %}
 
+
 {% block content %}
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <div style="width: 30%;margin-left: auto;margin-right: auto">
@@ -27,10 +28,8 @@
                     <span style="float: right;color: #4cae4c" class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 
                     <select type="text" class="form-control" id="usergroup" name="usergroup">
-{#                        <option value="" selected="selected">---------</option>#}
-
+                        <option value="">---------</option>
                         {% for group in groups %}
-
                         <option value="{{ group.id }}"
                                 {% if form.usergroup.value == group.id|striptags %}selected="selected"{% endif %}>
                             {{ group.groupname }}</option>
@@ -45,9 +44,10 @@
 
                 <div class="form-group">
                     <label for="department">department</label>
-                    <span style="float: right;color: #4cae4c" class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    <a href="{% url 'add_group' %}">
+                    <span style="float: right;color: #4cae4c" class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
                     <select type="text" class="form-control" id="department" name="department">
-{#                        <option value="" selected="selected">---------</option>#}
+                        <option value="">---------</option>
                         {% for department in departments %}
                         <option value="{{ department.id }}"
                                 {% if form.department.value == department.id|striptags %}selected="selected"{% endif %}>
@@ -83,4 +83,11 @@
             </form>
         </div>
     </div>
+{% endblock %}
+
+{% block footer %}
+
+    {% if sucess %}
+        <script>window.alert('用户添加成功！')</script>
+    {% endif %}
 {% endblock %}

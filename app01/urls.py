@@ -21,5 +21,6 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^list_users/', views.list_users, name='list_users'),
     url(r'^add_users/', views.add_users, name='add_users'),
+    url(r'^add_group/', views.add_group, name='add_group'),
 
 ]
