@@ -15,7 +15,7 @@
                 </div>
                 <div class="form-group">
                     <label for="password">password</label>
-                    <input type="password" class="form-control" id="password" name="Password">
+                    <input type="password" class="form-control" id="password" name="password">
                 </div>
                 {%  if form.errors.password %}
                     {% for item in form.errors.password %}
@@ -31,8 +31,8 @@
 
                         {% for group in groups %}
 
-                        <option aaa="{% if form.usergroup.value == group.id %}相等{% else %}不等{% endif %}"
-                                value="{{ group.id }}" {% if form.usergroup.value == group.id %}selected="selected"{% endif %}>
+                        <option value="{{ group.id }}"
+                                {% if form.usergroup.value == group.id|striptags %}selected="selected"{% endif %}>
                             {{ group.groupname }}</option>
                         {% endfor %}
                     </select>
@@ -49,7 +49,9 @@
                     <select type="text" class="form-control" id="department" name="department">
 {#                        <option value="" selected="selected">---------</option>#}
                         {% for department in departments %}
-                        <option value="{{ department.id }}" {% if form.department.value == department.id %}selected="selected"{% endif %}>{{ department.departname }}</option>
+                        <option value="{{ department.id }}"
+                                {% if form.department.value == department.id|striptags %}selected="selected"{% endif %}>
+                            {{ department.departname }}</option>
                         {% endfor %}
                     </select>
                     {%  if form.errors.department %}

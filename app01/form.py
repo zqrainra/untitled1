@@ -4,6 +4,7 @@ from models import User,Group,Work,Depart
 from django import forms
 from django.core.exceptions import ValidationError
 from .validation import username_exist_validator,mail_exist_validator,phone_exist_validator
+from django.contrib.auth.hashers import make_password
 
 class UserForm(ModelForm):
     class Meta:
@@ -39,3 +40,15 @@ class CreateUserForm(forms.Form):
                                     validators=[mail_exist_validator,]
                                    )
 
+    def clean(self):
+        password = self.cleaned_data['password']
+        self.cleaned_data['password'] = make_password(password)
+        return self.cleaned_data
+
+    def save(self):
+        try:
+            user = User(self.cleaned_data)
+            user.save()
+            return user
+        except Exception as e:
+            raise e

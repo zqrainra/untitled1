@@ -29,7 +29,10 @@ def add_users(request):
         form = CreateUserForm(request.POST)
 
         if form.is_valid():
-            print(form.clean())
+            try:
+                form.save()
+            except Exception as e:
+                print(e)
         else:
             print(form.errors)
     context = {
@@ -37,7 +40,7 @@ def add_users(request):
         'departments': departments,
         'form': form
     }
-    print(int(form['usergroup'].value()) == groups[0].id)
+
     return render(request, 'app01/add_user.html', context=context)
 
         # return redirect( 'add_users')
