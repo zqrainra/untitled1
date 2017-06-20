@@ -44,8 +44,9 @@
 
                 <div class="form-group">
                     <label for="department">department</label>
-                    <a href="{% url 'add_group' %}">
-                    <span style="float: right;color: #4cae4c" class="glyphicon glyphicon-plus" aria-hidden="true"></span></a>
+                    <a href="javascript:;" id="add_dpartment">
+                    <span style="float: right;color: #4cae4c;" class="glyphicon glyphicon-plus" aria-hidden="true"
+                    ></span></a>
                     <select type="text" class="form-control" id="department" name="department">
                         <option value="">---------</option>
                         {% for department in departments %}
@@ -86,7 +87,17 @@
 {% endblock %}
 
 {% block footer %}
+    <script>
+    function add_sth(url) {
+{#        window.open (url, 'newwindow', ChannelMergerNode);#}
+        this.style.backgroundColor = "red";
+        console.log('成功');
+    }
+    console.log('还没成功');
+    document.getElementById('add_dpartment').addEventListener('click',add_sth("{% url 'add_group' %}"),true);
 
+
+    </script>
     {% if sucess %}
         <script>window.alert('用户添加成功！')</script>
     {% endif %}

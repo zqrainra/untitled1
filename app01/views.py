@@ -27,12 +27,10 @@ def add_group(request):
             group = form.save()
             print(group)
             context = {'group':group.id}
-        else:
-            context = {'errors':form.errors}
-        return HttpResponse(json.dumps(context))
+            return HttpResponse(json.dumps(context))
     else:
         form = GroupForm()
-        return render(request,'app01/add_group.html',{'form':form})
+    return render(request,'app01/add_group.html',{'form':form})
 
 def add_department(request):
     pass
