@@ -25,6 +25,12 @@ class GroupForm(ModelForm):
 
 
 class DepartForm(ModelForm):
+    def clean_groupname(self):
+        data = self.cleaned_data['departname']
+        department = Group.objects.filter(departname=data)
+        if department:
+            raise ValidationError('用户部门已存在')
+        return data
     class Meta:
         model = Depart
         fields = ['departname']

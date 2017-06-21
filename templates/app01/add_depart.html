@@ -8,14 +8,14 @@
 </head>
 <body>
 {% if form %}
-    <form id="add_group">
+    <form id="add_department">
     {% csrf_token %}
-    {{ form.groupname }}
-        {%  if form.errors.groupname %}
-                        {% for item in form.errors.groupname %}
-                            <span style="color: red" id="error_info">{{ item }}</span>
-                        {% endfor %}
-                    {% endif %}
+    {{ form.departname }}
+        {%  if form.errors.departname %}
+            {% for item in form.errors.departname %}
+                <span style="color: red" id="error_info">{{ item }}</span>
+            {% endfor %}
+        {% endif %}
     </form>
     <button id="submit_add" onclick="javascript:;">提交</button>
 {% endif %}
@@ -33,14 +33,14 @@
         console.log(form_);
     }
     function check_form() {
-        var form_data = document.getElementById('id_groupname');
+        var form_data = document.getElementById('id_departname');
         if ( ! form_data.value) {
             window.alert('不能为空');
         };
     };
     function add_parents_input(id,name) {
         var new_option = new Option(id,name);
-        var p_form = window.opener.document.getElementById('usergroup');
+        var p_form = window.opener.document.getElementById('department');
         p_form.options.add(new_option);
         p_form.options.selectedIndex = p_form.options.length - 1;
     }
@@ -55,7 +55,7 @@
                msg = JSON.parse(msg);
                if(msg['errors']){
 
-                   alert(msg['errors']['groupname']);
+                   alert(msg['errors']['departname']);
                }
                else if(msg['context']){
                    if( window.opener){

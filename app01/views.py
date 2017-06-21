@@ -19,21 +19,37 @@ def list_users(request):
         context = {"users":users}
         return render(request,'app01/list_user.html',context=context)
 
+
+
 def add_group(request):
     if request.method == 'POST':
-        context = {}
+        print(request.POST)
         form = GroupForm(request.POST)
         if form.is_valid():
             group = form.save()
             print(group)
-            context = {'group':group.id}
-            return HttpResponse(json.dumps(context))
+            context = {'context':[group.id,group.groupname]}
+        else:
+            context = {'errors':form.errors}
+        return HttpResponse(json.dumps(context))
     else:
         form = GroupForm()
     return render(request,'app01/add_group.html',{'form':form})
 
 def add_department(request):
-    pass
+    if request.method == 'POST':
+        print(request.POST)
+        form = DepartForm(request.POST)
+        if form.is_valid():
+            depart = form.save()
+            print(depart)
+            context = {'context':[depart.id,depart.departname]}
+        else:
+            context = {'errors':form.errors}
+        return HttpResponse(json.dumps(context))
+    else:
+        form = DepartForm()
+    return render(request,'app01/add_depart.html',{'form':form})
 
 
 def add_users(request):
