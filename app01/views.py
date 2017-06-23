@@ -1,12 +1,17 @@
+#coding:utf8
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from form import WorkForm,UserForm,GroupForm,DepartForm
+from form import WorkForm,UserForm,GroupForm,DepartForm,LoginForm
 from models import Work,User,Group,Depart
 from django.forms import modelformset_factory,modelform_factory
 from .form import CreateUserForm,GroupForm
 import json
+from backends import authenticate
+from django.contrib.auth import login,logout
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
+@login_required(login_url='/user_login/')
 def index(request):
     if request.method == 'GET':
         works = Work.objects.all()
@@ -18,6 +23,28 @@ def list_users(request):
         users = User.objects.all()
         context = {"users":users}
         return render(request,'app01/list_user.html',context=context)
+
+def user_login(request):
+    if request.method == 'POST':
+        login_form = LoginForm(request.POST)
+        if login_form.is_valid():
+            user = authenticate(username=request.POST['username'],password=request.POST['password'])
+            if user:
+                login(request,user)
+                return redirect(index)
+            else:
+                login_form.errors['password'] = u'用户名或密码错误'
+    else:
+        if request.user.is_authenticated:
+            print(request.user)
+            return redirect(index)
+        login_form = LoginForm()
+    context = {'form':login_form}
+    return render(request,'app01/login.html',context=context)
+
+def user_logout(request):
+    logout(request)
+    return redirect('user_login')
 
 
 

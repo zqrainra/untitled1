@@ -33,7 +33,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="http://v3.bootcss.com/examples/dashboard/#">Dashboard</a></li>
+            <li><a href="http://v3.bootcss.com/examples/dashboard/#">{% if user.is_authenticated %}{{ user.username }}{% endif %}</a></li>
             <li><a href="http://v3.bootcss.com/examples/dashboard/#">Settings</a></li>
             <li><a href="http://v3.bootcss.com/examples/dashboard/#">Profile</a></li>
             <li><a href="http://v3.bootcss.com/examples/dashboard/#">Help</a></li>
@@ -45,6 +45,7 @@
       </div>
     </nav>
     {% endblock %}
+    {% block body_content %}
     {% block leftbar %}
     <div class="container-fluid">
       <div class="row">
@@ -222,6 +223,7 @@
     {% endblock %}
     </div>
     {% block footer %}
+    {% endblock %}
     {% endblock %}
     <!-- Bootstrap core JavaScript
     ================================================== -->

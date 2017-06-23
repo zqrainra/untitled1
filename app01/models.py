@@ -1,7 +1,8 @@
 #coding:utf8
 from __future__ import unicode_literals
-
+from django.contrib.auth.hashers import make_password
 from django.db import models
+from django.contrib.auth.base_user import AbstractBaseUser
 
 # Create your models here.
 
@@ -20,7 +21,7 @@ class Depart(models.Model):
     def __unicode__(self):
         return self.departname
 
-class User(models.Model):
+class User(AbstractBaseUser):
     username = models.CharField(max_length=20,null=False,unique=True)
     password = models.CharField(max_length=128,null=True)
     usergroup = models.ForeignKey(Group)
@@ -30,8 +31,20 @@ class User(models.Model):
     phone = models.CharField(max_length=20,null=True,unique=True)
     mail_address = models.CharField(max_length=50,null=True,unique=True)
 
+    is_staff = False
+    has_module_perms = False
+
     def __unicode__(self):
         return self.username
+
+
+
+    # def check_password(self,this_password):
+    #     if self.password == make_password(this_password):
+    #         return True
+    #     else:
+    #         return False
+
 
 
 class Work(models.Model):

@@ -11,6 +11,11 @@ class UserForm(ModelForm):
         model = User
         fields = ['username','usergroup','department','phone','mail_address']
 
+class LoginForm(forms.Form):
+    username = forms.CharField(required=True,error_messages={'required':u'用户名不能为空'})
+    password = forms.CharField(required=True,error_messages={'required':u'密码不能为空'})
+
+
 class GroupForm(ModelForm):
     def clean_groupname(self):
         data = self.cleaned_data['groupname']

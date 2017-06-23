@@ -1,0 +1,23 @@
+{% extends "app01/base.html" %}
+
+{% block body_content %}
+    <div>
+        <form action="{% url 'user_login' %}" method="post">
+            {% csrf_token %}
+            {{ form.username }}
+
+            {%  if form.errors.username %}
+            {% for item in form.errors.username %}
+                <span style="color: red" id="error_info">{{ item }}</span>
+            {% endfor %}
+        {% endif %}
+            {{ form.password }}
+        {%  if form.errors.password %}
+            {% for item in form.errors.password %}
+                <span style="color: red" id="error_info">{{ item }}</span>
+            {% endfor %}
+        {% endif %}
+            <input type="submit" value="提交">
+        </form>
+    </div>
+{% endblock %}
